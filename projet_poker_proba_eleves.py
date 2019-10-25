@@ -1,7 +1,7 @@
 import time
 
 class Card :
-    """ Classe représentant les cartes d'un jeu classique de 54 cartes.
+    """ Classe reprÃ©sentant les cartes d'un jeu classique de 54 cartes.
     """
     VALUES = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
     COLORS = ["\u2665","\u2660","\u2663","\u2666"] # Hearts,Spades,Clubs,Diamonds
@@ -11,11 +11,11 @@ class Card :
         self.color=color
 
     def __str__(self) :
-        """ Fonction pour la représentation graphique """
+        """ Fonction pour la reprÃ©sentation graphique """
         return self.VALUES[self.value]+self.COLORS[self.color]
 
     def get_remaining_cards(used_cards) :
-        """ Retourne l'ensemble des cartes sauf celles présentes dans l'ensemble used_cards
+        """ Retourne l'ensemble des cartes sauf celles prÃ©sentes dans l'ensemble used_cards
         """
         res=[]
         for i in range(0,13) :
@@ -25,7 +25,7 @@ class Card :
                     res.append(Card(i,j))
         return res
 
-    """ Fonctions pour la comparaison des cartes (utilisées dans la gestion des mains)
+    """ Fonctions pour la comparaison des cartes (utilisÃ©es dans la gestion des mains)
     """
     def __lt__(self, other)  : # For x < y
         return self.value < other.value or (self.value == other.value and self.color < other.color)
@@ -41,7 +41,7 @@ class Card :
         return not(self < other)
 
 class HoleCards :
-    """ Classe représentant les 2 cartes du joueur
+    """ Classe reprÃ©sentant les 2 cartes du joueur
     """
 
     def __init__(self,card1,card2) :
@@ -53,7 +53,7 @@ class HoleCards :
             self.card2=card1
 
     def __str__(self) :
-        """ Fonction pour la représentation graphique """
+        """ Fonction pour la reprÃ©sentation graphique """
         return "("+str(self.card1)+","+str(self.card2)+")"
 
 class CardValue :
@@ -77,7 +77,7 @@ class CardValue :
         return not(self < other)
 
 class Hand :
-    """ Classe représentant une main (5 cartes)
+    """ Classe reprÃ©sentant une main (5 cartes)
     """
     def __init__(self,cards) :
         self.cards = cards
@@ -160,7 +160,7 @@ class Hand :
         return not(self.is_all_same_color()) and self.is_following_values()
 
     def is_four_of_a_kind(self) :
-        """ teste si la main est un carré """
+        """ teste si la main est un carrÃ© """
         values = [0]*13
         for c in self.cards :
             values[c.value]+=1
@@ -268,9 +268,9 @@ class Hand :
         return not(self < other)
 
 class GameSituation :
-    """ Classe représentant l'état du jeu :
-        - hole_cards        : représente les cartes cachées du joueur
-        - community_cards   : représente les cartes communes sur la table
+    """ Classe reprÃ©sentant l'Ã©tat du jeu :
+        - hole_cards        : reprÃ©sente les cartes cachÃ©es du joueur
+        - community_cards   : reprÃ©sente les cartes communes sur la table
     """
     def __init__(self,hole_cards,community_cards) :
         self.hole_cards = hole_cards
@@ -278,7 +278,7 @@ class GameSituation :
 
     def get_best_hand(self) :
         """ Fonction retournant la meilleure main possible parmi les 7 cartes : 2 du joueur et 5 communes
-            ATTENTION ! : à n'utiliser que s'il y a effectivement 5 cartes communes
+            ATTENTION ! : Ã  n'utiliser que s'il y a effectivement 5 cartes communes
         """
         if len(self.community_cards) != 5 :
             raise NameError("get_best_hand")
@@ -296,35 +296,58 @@ class GameSituation :
         return best_hand
 
     def get_probabilities_after_river(self) :
-        float a,b,c;
-        for i in range (0,)
+        main_cards=[self.hole_cards.card1,self.hole_cards.card2]
+        main_cards.extend(self.community_cards)
+        game = GameSituation(self.hole_cards,self.community_cards)
+        others = Card.get_remaining_cards(main_cards)
+        probA = 0
+        probB = 0
+        probC = 0
+        n = 0
 
-        """ À compléter !
-            Fonction retournant 3 nombres réels (a,b,c) où
-            - a : représente la probabilité que le joueur gagne contre un autre joueur après la river
-            - b : représente la probabilité que le joueur fasse nul contre un autre joueur après la river
-            - c : représente la probabilité que le joueur perdre contre un autre joueur après la river
+        first = game.get_best_hand()
+        for i in range (0,len(others)):
+            for j in range (i+1,len(others)) :
+                n += 1
+                cardp2 = HoleCards(others[i], others[j])
+                game2 = GameSituation(cardp2, c_c)
+                if(first > game2.get_best_hand()) :
+                    probA+=1
+                elif (first == game2.get_best_hand()):
+                    probB+=1
+                elif (first < game2.get_best_hand()):
+                    probC +=1
+        a = probA/n
+        b = probB/n
+        c = probC/n
+
+        return a,b,c
+
+
+        """ Ã€ complÃ©ter !
+            Fonction retournant 3 nombres rÃ©els (a,b,c) oÃ¹
+            - a : reprÃ©sente la probabilitÃ© que le joueur gagne contre un autre joueur aprÃ¨s la river
+            - b : reprÃ©sente la probabilitÃ© que le joueur fasse nul contre un autre joueur aprÃ¨s la river
+            - c : reprÃ©sente la probabilitÃ© que le joueur perdre contre un autre joueur aprÃ¨s la river
         """
-        return 0,0,0
 
     def get_probabilities_after_turn(self) :
-        float a,b,c;
-        """ À compléter !
-            Fonction retournant 3 nombres réels (a,b,c) où
-            - a : représente la probabilité que le joueur gagne contre un autre joueur après le turn
-            - b : représente la probabilité que le joueur fasse nul contre un autre joueur après le turn
-            - c : représente la probabilité que le joueur perdre contre un autre joueur après le turn
+        """ Ã€ complÃ©ter !
+            Fonction retournant 3 nombres rÃ©els (a,b,c) oÃ¹
+            - a : reprÃ©sente la probabilitÃ© que le joueur gagne contre un autre joueur aprÃ¨s le turn
+            - b : reprÃ©sente la probabilitÃ© que le joueur fasse nul contre un autre joueur aprÃ¨s le turn
+            - c : reprÃ©sente la probabilitÃ© que le joueur perdre contre un autre joueur aprÃ¨s le turn
         """
         return 0,0,0
 
     def get_probabilities_after_flop(self) :
         float a,b,c;
 
-        """ À compléter !
-            Fonction retournant 3 nombres réels (a,b,c) où
-            - a : représente la probabilité que le joueur gagne contre un autre joueur après le flop
-            - b : représente la probabilité que le joueur fasse nul contre un autre joueur après le flop
-            - c : représente la probabilité que le joueur perdre contre un autre joueur après le flop
+        """ Ã€ complÃ©ter !
+            Fonction retournant 3 nombres rÃ©els (a,b,c) oÃ¹
+            - a : reprÃ©sente la probabilitÃ© que le joueur gagne contre un autre joueur aprÃ¨s le flop
+            - b : reprÃ©sente la probabilitÃ© que le joueur fasse nul contre un autre joueur aprÃ¨s le flop
+            - c : reprÃ©sente la probabilitÃ© que le joueur perdre contre un autre joueur aprÃ¨s le flop
         """
         return 0,0,0
 
@@ -338,7 +361,7 @@ class GameSituation :
             return self.get_probabilities_after_flop()
 
     def __str__(self) :
-        """ Fonction pour la représentation graphique """
+        """ Fonction pour la reprÃ©sentation graphique """
         res = "HC : "+str(self.hole_cards)+" , CC = ("
         for c in self.community_cards :
             res+=str(c)+","
