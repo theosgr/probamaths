@@ -1,7 +1,7 @@
 import time
 
 class Card :
-    """ Classe reprÃ©sentant les cartes d'un jeu classique de 54 cartes.
+    """ Classe reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sentant les cartes d'un jeu classique de 54 cartes.
     """
     VALUES = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
     COLORS = ["\u2665","\u2660","\u2663","\u2666"] # Hearts,Spades,Clubs,Diamonds
@@ -11,11 +11,11 @@ class Card :
         self.color=color
 
     def __str__(self) :
-        """ Fonction pour la reprÃ©sentation graphique """
+        """ Fonction pour la reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sentation graphique """
         return self.VALUES[self.value]+self.COLORS[self.color]
 
     def get_remaining_cards(used_cards) :
-        """ Retourne l'ensemble des cartes sauf celles prÃ©sentes dans l'ensemble used_cards
+        """ Retourne l'ensemble des cartes sauf celles prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sentes dans l'ensemble used_cards
         """
         res=[]
         for i in range(0,13) :
@@ -25,7 +25,7 @@ class Card :
                     res.append(Card(i,j))
         return res
 
-    """ Fonctions pour la comparaison des cartes (utilisÃ©es dans la gestion des mains)
+    """ Fonctions pour la comparaison des cartes (utilisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©es dans la gestion des mains)
     """
     def __lt__(self, other)  : # For x < y
         return self.value < other.value or (self.value == other.value and self.color < other.color)
@@ -41,7 +41,7 @@ class Card :
         return not(self < other)
 
 class HoleCards :
-    """ Classe reprÃ©sentant les 2 cartes du joueur
+    """ Classe reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sentant les 2 cartes du joueur
     """
 
     def __init__(self,card1,card2) :
@@ -53,7 +53,7 @@ class HoleCards :
             self.card2=card1
 
     def __str__(self) :
-        """ Fonction pour la reprÃ©sentation graphique """
+        """ Fonction pour la reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sentation graphique """
         return "("+str(self.card1)+","+str(self.card2)+")"
 
 class CardValue :
@@ -77,7 +77,7 @@ class CardValue :
         return not(self < other)
 
 class Hand :
-    """ Classe reprÃ©sentant une main (5 cartes)
+    """ Classe reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sentant une main (5 cartes)
     """
     def __init__(self,cards) :
         self.cards = cards
@@ -160,7 +160,7 @@ class Hand :
         return not(self.is_all_same_color()) and self.is_following_values()
 
     def is_four_of_a_kind(self) :
-        """ teste si la main est un carrÃ© """
+        """ teste si la main est un carrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© """
         values = [0]*13
         for c in self.cards :
             values[c.value]+=1
@@ -268,9 +268,9 @@ class Hand :
         return not(self < other)
 
 class GameSituation :
-    """ Classe reprÃ©sentant l'Ã©tat du jeu :
-        - hole_cards        : reprÃ©sente les cartes cachÃ©es du joueur
-        - community_cards   : reprÃ©sente les cartes communes sur la table
+    """ Classe reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sentant l'ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©tat du jeu :
+        - hole_cards        : reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sente les cartes cachÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©es du joueur
+        - community_cards   : reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sente les cartes communes sur la table
     """
     def __init__(self,hole_cards,community_cards) :
         self.hole_cards = hole_cards
@@ -278,7 +278,7 @@ class GameSituation :
 
     def get_best_hand(self) :
         """ Fonction retournant la meilleure main possible parmi les 7 cartes : 2 du joueur et 5 communes
-            ATTENTION ! : Ã  n'utiliser que s'il y a effectivement 5 cartes communes
+            ATTENTION ! : ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â  n'utiliser que s'il y a effectivement 5 cartes communes
         """
         if len(self.community_cards) != 5 :
             raise NameError("get_best_hand")
@@ -324,30 +324,75 @@ class GameSituation :
         return a,b,c
 
 
-        """ Ã€ complÃ©ter !
-            Fonction retournant 3 nombres rÃ©els (a,b,c) oÃ¹
-            - a : reprÃ©sente la probabilitÃ© que le joueur gagne contre un autre joueur aprÃ¨s la river
-            - b : reprÃ©sente la probabilitÃ© que le joueur fasse nul contre un autre joueur aprÃ¨s la river
-            - c : reprÃ©sente la probabilitÃ© que le joueur perdre contre un autre joueur aprÃ¨s la river
+        """ ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ complÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©ter !
+            Fonction retournant 3 nombres rÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©els (a,b,c) oÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¹
+            - a : reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sente la probabilitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© que le joueur gagne contre un autre joueur aprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¨s la river
+            - b : reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sente la probabilitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© que le joueur fasse nul contre un autre joueur aprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¨s la river
+            - c : reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sente la probabilitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© que le joueur perdre contre un autre joueur aprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¨s la river
         """
 
     def get_probabilities_after_turn(self) :
-        """ Ã€ complÃ©ter !
-            Fonction retournant 3 nombres rÃ©els (a,b,c) oÃ¹
-            - a : reprÃ©sente la probabilitÃ© que le joueur gagne contre un autre joueur aprÃ¨s le turn
-            - b : reprÃ©sente la probabilitÃ© que le joueur fasse nul contre un autre joueur aprÃ¨s le turn
-            - c : reprÃ©sente la probabilitÃ© que le joueur perdre contre un autre joueur aprÃ¨s le turn
+
+        main_cards=[self.hole_cards.card1,self.hole_cards.card2] #CrÃƒÂ©ation de la main
+        main_cards.extend(self.community_cards) #Ajouter ÃƒÂ  cette main les cartes du plateau
+        game = GameSituation(self.hole_cards,self.community_cards) # On crÃƒÂ©ÃƒÂ© la situation avec nos cartes et toutes les cartes
+        others = Card.get_remaining_cards(main_cards) # recupÃƒÂ©rer les cartes restantes en fonction de nos cartes
+        probA = 0
+        probB = 0
+        probC = 0
+        n = 0 #compter les instances pour rÃƒÂ©cupÃƒÂ©rer le cardinal
+        for cardRiver in others:
+            community_cards_Potentiel=[]
+            card_used=[]
+            community_cards_Potentiel.extend(self.community_cards)
+            community_cards_Potentiel.append(cardRiver)
+            card_used.extend(community_cards_Potentiel)
+            card_used.append(self.hole_cards.card1)
+            card_used.append(self.hole_cards.card2)
+            cartPossible=[]
+            cartPossible = Card.get_remaining_cards(card_used)
+            first = GameSituation(self.hole_cards,community_cards_Potentiel)
+            besthand=first.get_best_hand()
+
+            for i in others: #voir pour les cartes de l'autre joueur
+                for j in others :
+                    n += 1
+                    cardp2 = HoleCards(i, j) #on teste avec des mains diffÃƒÂ©rentes
+                    game2 = GameSituation(cardp2, community_cards_Potentiel)
+                    mainpot = game2.get_best_hand()
+                    if(first > mainpot) : #compare entre le premier et deuxiÃƒÂ¨me
+                        probA+=1
+                    elif (first == mainpot):
+                        probB+=1
+                    elif (first < mainpot):
+                        probC +=1
+
+        a = probA/n
+        b = probB/n
+        c = probC/n
+
+
+
+
+
+
+
+
+        """ ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ complÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©ter !
+            Fonction retournant 3 nombres rÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©els (a,b,c) oÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¹
+            - a : reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sente la probabilitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© que le joueur gagne contre un autre joueur aprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¨s le turn
+            - b : reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sente la probabilitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© que le joueur fasse nul contre un autre joueur aprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¨s le turn
+            - c : reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sente la probabilitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© que le joueur perdre contre un autre joueur aprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¨s le turn
         """
-        return 0,0,0
+        return a,b,c
 
     def get_probabilities_after_flop(self) :
-        float a,b,c;
 
-        """ Ã€ complÃ©ter !
-            Fonction retournant 3 nombres rÃ©els (a,b,c) oÃ¹
-            - a : reprÃ©sente la probabilitÃ© que le joueur gagne contre un autre joueur aprÃ¨s le flop
-            - b : reprÃ©sente la probabilitÃ© que le joueur fasse nul contre un autre joueur aprÃ¨s le flop
-            - c : reprÃ©sente la probabilitÃ© que le joueur perdre contre un autre joueur aprÃ¨s le flop
+        """ ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ complÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©ter !
+            Fonction retournant 3 nombres rÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©els (a,b,c) oÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¹
+            - a : reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sente la probabilitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© que le joueur gagne contre un autre joueur aprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¨s le flop
+            - b : reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sente la probabilitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© que le joueur fasse nul contre un autre joueur aprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¨s le flop
+            - c : reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sente la probabilitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© que le joueur perdre contre un autre joueur aprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¨s le flop
         """
         return 0,0,0
 
@@ -361,7 +406,7 @@ class GameSituation :
             return self.get_probabilities_after_flop()
 
     def __str__(self) :
-        """ Fonction pour la reprÃ©sentation graphique """
+        """ Fonction pour la reprÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©sentation graphique """
         res = "HC : "+str(self.hole_cards)+" , CC = ("
         for c in self.community_cards :
             res+=str(c)+","
@@ -389,14 +434,16 @@ print("Est-ce que "+str(h9)+" != "+str(h1)+" : "+str(h9 != h1))
 
 
 h_c = HoleCards(Card(1,0),Card(4,1))
-c_c = [Card(3,3),Card(2,1),Card(5,3),Card(10,2),Card(11,1)]
+c_c = [Card(3,3),Card(2,1),Card(5,3),Card(10,2)]
+#,Card(11,1)
 
 gs = GameSituation(h_c,c_c)
 print(gs)
 
-best_hand = gs.get_best_hand()
-print("Best hand : "+str(best_hand))
+#best_hand = gs.get_best_hand()
+#print("Best hand : "+str(best_hand))
 
 start_time = time.time()
 print(gs.get_probabilities())
 print("--- %s seconds ---" % (time.time() - start_time))
+
