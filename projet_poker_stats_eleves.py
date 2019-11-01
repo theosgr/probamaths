@@ -2,13 +2,13 @@ from scipy.stats import *
 import numpy as np
 import csv
 
-""" On représente les classes de valeurs en utilisant la borne sup de chaque intervalle :
-    les classes [0,0.3], ]0.3,0.6], ]0.6,0.8], ]0.8,1] sont représentées par [0.3,0.6,0.8,1]
+""" On reprÃ©sente les classes de valeurs en utilisant la borne sup de chaque intervalle :
+    les classes [0,0.3], ]0.3,0.6], ]0.6,0.8], ]0.8,1] sont reprÃ©sentÃ©es par [0.3,0.6,0.8,1]
 """
 categories = [0.3,0.6,0.8,1]
 
 class Profile :
-    """ Classe représentant le profil d'un joueur
+    """ Classe reprÃ©sentant le profil d'un joueur
     """
     def __init__(self,actions_stats_csv,name) :
         self.name = name
@@ -22,13 +22,13 @@ class Profile :
                 self.actions_stats[r['hand_value']][r['action']]=float(r['value'])
         csvfile.close()
     def get_frequencies_from_category(self,cat) :
-        """ Fonction retournant les fréquences de coups du profil pour la classe de valeurs cat
+        """ Fonction retournant les frÃ©quences de coups du profil pour la classe de valeurs cat
         """
         return np.array([self.actions_stats[str(cat)]['Fold'],self.actions_stats[str(cat)]['Check'],self.actions_stats[str(cat)]['Call'],self.actions_stats[str(cat)]['Raise']])
 
 class Actions :
     """ Classe pour le traitement des actions d'un joueur :
-        recorded_actions : dictionnaire contenant les différents coups joué par le joueur
+        recorded_actions : dictionnaire contenant les diffÃ©rents coups jouÃ© par le joueur
     """
     def __init__(self,actions_csv) :
         self.recorded_actions = {}
@@ -55,7 +55,7 @@ class Actions :
         return np.array([self.recorded_actions[str(cat)]['Fold'],self.recorded_actions[str(cat)]['Check'],self.recorded_actions[str(cat)]['Call'],self.recorded_actions[str(cat)]['Raise']])
 
     def get_best_profile(self,profiles) :
-        res = "Nobody"
+        res = "Best profile"
         return res
 
 agg_serr = Profile("actions_agressif_serre.csv","Agressif/serré")
